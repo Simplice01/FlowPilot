@@ -24,27 +24,24 @@ def liste_taches(request):
     return Response(serializer.data)
 
 
-# 🧩 Création d’une tâche
 @api_view(['POST'])
 @permission_classes([IsCommercialOrHigher])
 def create_tache(request):
-    """
-    Crée une nouvelle tâche :
-    - Accessible à tous les commerciaux et supérieurs
-    - Si commercial → la tâche lui est automatiquement assignée
-    """
     data = request.data.copy()
 
-    # 🔒 Forcer le commercial connecté
-    if request.user.role == 'commercial':
-        data['commercial'] = request.user.id
+    # 🔒 Le commercial DOIT être fourni
+    if not data.get('commercial'):
+        return Response(
+            {"commercial": ["Ce champ est obligatoire."]},
+            status=status.HTTP_400_BAD_REQUEST
+        )
 
     serializer = TacheSerializer(data=data)
     if serializer.is_valid():
         serializer.save()
         return Response(serializer.data, status=status.HTTP_201_CREATED)
-    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 # 🧩 Mise à jour d’une tâche
 @api_view(['PUT'])
@@ -85,3 +82,18 @@ def delete_tache(request, pk):
         return Response({"message": "Tâche supprimée ✅"}, status=status.HTTP_204_NO_CONTENT)
     except Tache.DoesNotExist:
         return Response({"error": "Tâche non trouvée"}, status=status.HTTP_404_NOT_FOUND)
+
+@api_view(['GET'])
+@permission_classes([IsCommercialOrHigher])
+def detail_tache(request, pk):
+    try:
+        tache = Tache.objects.get(pk=pk)
+    except Tache.DoesNotExist:
+        return Response({"error": "Tâche introuvable"}, status=status.HTTP_404_NOT_FOUND)
+
+    # 🔒 Sécurité
+    if request.user.role == 'commercial' and tache.commercial != request.user:
+        return Response({"error": "Accès refusé"}, status=status.HTTP_403_FORBIDDEN)
+
+    serializer = TacheSerializer(tache)
+    return Response(serializer.data)

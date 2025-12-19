@@ -98,3 +98,4 @@ def delete_client(request, pk):
         return Response({"message": "Client supprimé avec succès ✅"}, status=status.HTTP_204_NO_CONTENT)
     except Client.DoesNotExist:
         return Response({"error": "Client non trouvé"}, status=status.HTTP_404_NOT_FOUND)
+

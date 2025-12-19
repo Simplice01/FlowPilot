@@ -1,0 +1,40 @@
+.form {
+  display: grid;
+  gap: 16px;
+  justify-items: stretch; 
+
+}
+
+.form-page {
+  display: flex;
+  justify-content: center; /* centre horizontalement */
+}
+
+.form-wrapper {
+  width: 40%;
+  max-width: 1000px;
+}
+
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group label {
+  font-size: 13px;
+  color: var(--muted);
+  margin-bottom: 4px;
+}
+
+.form-group input {
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  font-size: 14px;
+}
+
+.form-group input:focus {
+  outline: none;
+  border-color: var(--primary);
+}

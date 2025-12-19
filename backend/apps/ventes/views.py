@@ -28,21 +28,24 @@ def liste_ventes(request):
 @api_view(['POST'])
 @permission_classes([IsCommercialOrHigher])
 def create_vente(request):
-    """
-    Crée une nouvelle vente.
-    Accessible aux commerciaux, managers et admins.
-    Le commercial est automatiquement associé à la vente créée.
-    """
     data = request.data.copy()
 
-    # 🔒 Si l’utilisateur est commercial, on force son propre ID
+    # Commercial → auto-assignation
     if request.user.role == 'commercial':
         data['commercial'] = request.user.id
+
+    # Admin / Manager → commercial obligatoire
+    if request.user.role in ['admin', 'manager'] and not data.get('commercial'):
+        return Response(
+            {"commercial": ["Ce champ est obligatoire."]},
+            status=status.HTTP_400_BAD_REQUEST
+        )
 
     serializer = VenteSerializer(data=data)
     if serializer.is_valid():
         serializer.save()
         return Response(serializer.data, status=status.HTTP_201_CREATED)
+
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 

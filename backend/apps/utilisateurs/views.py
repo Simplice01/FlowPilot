@@ -3,7 +3,15 @@ from rest_framework.decorators import api_view, permission_classes
 from rest_framework import status
 from .models import Utilisateur
 from .serializers import UtilisateurSerializer
-from apps.utilisateurs.permissions import IsAdmin
+from apps.utilisateurs.permissions import IsAdmin,IsCommercialOrHigher
+from rest_framework_simplejwt.views import TokenObtainPairView
+from .serializers import CustomTokenObtainPairSerializer
+
+# 🔐 VUE LOGIN JWT PERSONNALISÉE
+class CustomTokenObtainPairView(TokenObtainPairView):
+    serializer_class = CustomTokenObtainPairSerializer
+
+
 
 # 🧩 Liste de tous les utilisateurs
 @api_view(['GET'])
@@ -80,3 +88,16 @@ def delete_utilisateur(request, pk):
         return Response({"message": "Utilisateur supprimé ✅"}, status=status.HTTP_204_NO_CONTENT)
     except Utilisateur.DoesNotExist:
         return Response({"error": "Utilisateur introuvable"}, status=status.HTTP_404_NOT_FOUND)
+
+@api_view(['GET'])
+@permission_classes([IsCommercialOrHigher])
+def liste_commerciaux(request):
+    commerciaux = Utilisateur.objects.filter(role='commercial')
+    serializer = UtilisateurSerializer(commerciaux, many=True)
+    return Response(serializer.data)
+
+@api_view(['GET'])
+@permission_classes([IsCommercialOrHigher])
+def me(request):
+    serializer = UtilisateurSerializer(request.user)
+    return Response(serializer.data)

@@ -44,21 +44,15 @@ def liste_prospects(request):
 def create_prospect(request):
     """
     Crée un nouveau prospect :
-    - Commercial : prospect associé automatiquement à lui-même
-    - Manager / Admin : peuvent assigner un commercial librement
+    - Le commercial est AUTOMATIQUEMENT l'utilisateur connecté
     """
-    data = request.data.copy()
+    serializer = ProspectSerializer(data=request.data)
 
-    # 🔒 Si commercial → force le commercial à soi-même
-    if request.user.role == 'commercial':
-        data['commercial'] = request.user.id
-
-    serializer = ProspectSerializer(data=data)
     if serializer.is_valid():
-        serializer.save()
+        serializer.save(commercial=request.user)
         return Response(serializer.data, status=status.HTTP_201_CREATED)
-    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 # 🧩 Conversion d’un prospect en client
 @api_view(['POST'])
@@ -83,7 +77,6 @@ def convertir_prospect(request, pk):
         last_name=prospect.last_name,
         email=prospect.email,
         phone=prospect.phone,
-        adresse=prospect.adresse,
         commercial=prospect.commercial,
         statut='client'
     )
@@ -137,3 +130,25 @@ def delete_prospect(request, pk):
         return Response({"message": "Prospect supprimé avec succès ✅"}, status=status.HTTP_204_NO_CONTENT)
     except Prospect.DoesNotExist:
         return Response({"error": "Prospect non trouvé"}, status=status.HTTP_404_NOT_FOUND)
+
+@api_view(['GET', 'PUT'])
+@permission_classes([IsCommercialOrHigher])
+def prospect_detail(request, pk):
+    try:
+        prospect = Prospect.objects.get(pk=pk)
+    except Prospect.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    if request.user.role == 'commercial' and prospect.commercial != request.user:
+        return Response(status=status.HTTP_403_FORBIDDEN)
+
+    if request.method == 'GET':
+        serializer = ProspectSerializer(prospect)
+        return Response(serializer.data)
+
+    if request.method == 'PUT':
+        serializer = ProspectSerializer(prospect, data=request.data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
