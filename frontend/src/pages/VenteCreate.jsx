@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom";
 import { createVente } from "../api/venteService";
 import { getContrats } from "../api/contratService";
 import { getCommerciaux } from "../api/userService";
+import Navbar from "../components/Navbar";
+
 
 export default function VenteCreate() {
   const navigate = useNavigate();
@@ -51,6 +53,8 @@ export default function VenteCreate() {
   };
 
   return (
+    <>
+      <Navbar />
     <div className="page form-page">
       <div className="card form-wrapper">
         <h2>Nouvelle vente</h2>
@@ -82,5 +86,6 @@ export default function VenteCreate() {
         </form>
       </div>
     </div>
+    </>
   );
 }

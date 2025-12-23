@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { createUser } from "../api/userService";
+import Navbar from "../components/Navbar";
+
 
 export default function UsersCreate() {
   const navigate = useNavigate();
@@ -36,6 +38,8 @@ export default function UsersCreate() {
   };
 
   return (
+    <>
+      <Navbar />
     <div className="page">
       <div className="page-header">
         <h2>Nouvel utilisateur</h2>
@@ -103,5 +107,6 @@ export default function UsersCreate() {
         </form>
       </div>
     </div>
+    </>
   );
 }

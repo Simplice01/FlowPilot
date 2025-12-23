@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { createProspect } from "../api/prospectService";
 import { useNavigate } from "react-router-dom";
+import Navbar from "../components/Navbar";
+
 
 export default function ProspectCreate() {
   const navigate = useNavigate();
@@ -32,6 +34,8 @@ export default function ProspectCreate() {
   };
 
   return (
+    <>
+      <Navbar />
       <div className="page form-page">
     <div className="card form-wrapper">
       <h2 style={{ marginBottom: 24 }}>Nouveau prospect</h2>
@@ -102,6 +106,7 @@ export default function ProspectCreate() {
       </form>
     </div>
   </div>
+    </>
 
   );
 }

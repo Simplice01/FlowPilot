@@ -4,6 +4,8 @@ import {
   markNotificationAsRead,
   deleteNotification,
 } from "../api/notificationService";
+import Navbar from "../components/Navbar";
+
 
 export default function NotificationsList() {
   const [notifications, setNotifications] = useState([]);
@@ -38,6 +40,8 @@ export default function NotificationsList() {
   if (loading) return <p>Chargement...</p>;
 
   return (
+    <>
+      <Navbar />
     <div className="page">
       <div className="page-header">
         <h2>Notifications</h2>
@@ -85,5 +89,6 @@ export default function NotificationsList() {
         )}
       </div>
     </div>
+    </>
   );
 }

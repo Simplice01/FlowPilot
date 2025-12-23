@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { updateTache } from "../api/tacheService";
+import Navbar from "../components/Navbar";
+
 
 export default function TacheEdit() {
   const { id } = useParams();
@@ -46,6 +48,8 @@ export default function TacheEdit() {
   if (!tache) return null;
 
   return (
+    <>
+      <Navbar />
     <div className="page form-page">
       <div className="card form-wrapper">
         <h2 style={{ marginBottom: 24 }}>Modifier la tâche</h2>
@@ -118,5 +122,6 @@ export default function TacheEdit() {
         </form>
       </div>
     </div>
+    </>
   );
 }

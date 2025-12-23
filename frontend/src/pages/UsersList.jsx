@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { getUsers, deleteUser } from "../api/userService";
+import Navbar from "../components/Navbar";
+
 
 export default function UsersList() {
   const [users, setUsers] = useState([]);
@@ -41,6 +43,8 @@ export default function UsersList() {
   };
 
   return (
+    <>
+      <Navbar />
     <div className="page">
       <div className="page-header">
         <h2>Utilisateurs</h2>
@@ -91,5 +95,6 @@ export default function UsersList() {
         </table>
       </div>
     </div>
+    </>
   );
 }

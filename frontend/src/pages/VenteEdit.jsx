@@ -1,6 +1,8 @@
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { updateVente } from "../api/venteService";
+import Navbar from "../components/Navbar";
+
 
 export default function VenteEdit() {
   const { id } = useParams();
@@ -28,6 +30,8 @@ export default function VenteEdit() {
   };
 
   return (
+    <>
+      <Navbar />
     <div className="page form-page">
       <div className="card form-wrapper">
         <h2>Modifier vente</h2>
@@ -43,5 +47,6 @@ export default function VenteEdit() {
         </form>
       </div>
     </div>
+    </>
   );
 }

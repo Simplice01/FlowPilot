@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { getTache } from "../api/tacheService";
+import Navbar from "../components/Navbar";
+
 
 export default function TacheDetail() {
   const { id } = useParams();
@@ -36,6 +38,8 @@ export default function TacheDetail() {
   if (!tache) return <p>Chargement...</p>;
 
   return (
+    <>
+      <Navbar />
     <div className="page">
       <div className="card form-wrapper">
         <h2>Détails de la tâche</h2>
@@ -52,5 +56,6 @@ export default function TacheDetail() {
         </button>
       </div>
     </div>
+    </>
   );
 }

@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { getTaches, deleteTache } from "../api/tacheService";
+import Navbar from "../components/Navbar";
+
 
 export default function TachesList() {
   const [taches, setTaches] = useState([]);
@@ -40,6 +42,8 @@ export default function TachesList() {
   };
 
   return (
+    <>
+      <Navbar />
     <div className="page">
       <div className="page-header">
         <h2>Tâches</h2>
@@ -101,5 +105,6 @@ export default function TachesList() {
         </table>
       </div>
     </div>
+    </>
   );
 }

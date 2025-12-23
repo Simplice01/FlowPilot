@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { updateProspect } from "../api/prospectService";
+import Navbar from "../components/Navbar";
+
 
 export default function ProspectEdit() {
   const { id } = useParams();
@@ -55,6 +57,8 @@ export default function ProspectEdit() {
   if (!prospect) return null;
 
   return (
+    <>
+      <Navbar />
         <div className="page form-page">
       <div className="card form-wrapper">
         <h2 style={{ marginBottom: 24 }}>Modifier le prospect</h2>
@@ -125,6 +129,7 @@ export default function ProspectEdit() {
         </form>
       </div>
     </div>
+    </>
 
   );
 }

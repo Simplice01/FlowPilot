@@ -1,5 +1,7 @@
 import { useAuth } from "../auth/AuthContext";
 import { useNavigate } from "react-router-dom";
+import Navbar from "../components/Navbar";
+
 
 export default function Profile() {
   const { user } = useAuth();
@@ -8,6 +10,8 @@ export default function Profile() {
   if (!user) return null;
 
   return (
+    <>
+      <Navbar />
     <div className="page">
       <div className="card form-wrapper">
         <h2 style={{ marginBottom: 24 }}>Mon profil</h2>
@@ -52,5 +56,6 @@ export default function Profile() {
         </div>
       </div>
     </div>
+    </>
   );
 }

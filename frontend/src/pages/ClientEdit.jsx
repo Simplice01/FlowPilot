@@ -1,6 +1,8 @@
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { updateClient } from "../api/clientService";
+import Navbar from "../components/Navbar";
+
 
 export default function ClientEdit() {
   const { id } = useParams();
@@ -37,6 +39,8 @@ export default function ClientEdit() {
   if (!client) return null;
 
   return (
+   <>
+      <Navbar />
     <div className="page form-page">
       <div className="card form-wrapper">
         <h2 style={{ marginBottom: 24 }}>Modifier le client</h2>
@@ -76,5 +80,6 @@ export default function ClientEdit() {
         </form>
       </div>
     </div>
+   </>
   );
 }

@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { getContrats, deleteContrat } from "../api/contratService";
+import Navbar from "../components/Navbar";
+
 
 export default function ContratsList() {
   const [contrats, setContrats] = useState([]);
@@ -36,6 +38,8 @@ export default function ContratsList() {
   };
 
   return (
+    <>
+      <Navbar />
     <div className="page">
       <div className="page-header">
         <h2>Contrats</h2>
@@ -98,5 +102,6 @@ export default function ContratsList() {
         </table>
       </div>
     </div>
+    </>
   );
 }

@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { getRapports } from "../api/rapportService";
+import Navbar from "../components/Navbar";
+
 
 export default function RapportList() {
   const [rapports, setRapports] = useState([]);
@@ -25,6 +27,8 @@ export default function RapportList() {
   };
 
   return (
+    <>
+      <Navbar />
     <div className="page">
       <div className="page-header">
         <h2>Rapports</h2>
@@ -71,5 +75,6 @@ export default function RapportList() {
         </table>
       </div>
     </div>
+    </>
   );
 }

@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { genererRapport } from "../api/rapportService";
+import Navbar from "../components/Navbar";
+
 
 export default function RapportGenerate() {
   const navigate = useNavigate();
@@ -36,6 +38,8 @@ export default function RapportGenerate() {
   };
 
   return (
+    <>
+      <Navbar />
     <div className="page form-page">
       <div className="card form-wrapper">
         <h2 style={{ marginBottom: 24 }}>Générer un rapport</h2>
@@ -106,5 +110,6 @@ export default function RapportGenerate() {
         </form>
       </div>
     </div>
+    </>
   );
 }

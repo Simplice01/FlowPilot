@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { getClients, deleteClient } from "../api/clientService";
 import { useAuth } from "../auth/AuthContext";
+import Navbar from "../components/Navbar";
+
 
 export default function ClientsList() {
   const [clients, setClients] = useState([]);
@@ -24,6 +26,8 @@ export default function ClientsList() {
   };
 
   return (
+    <>
+      <Navbar />
     <div className="page">
       <div className="page-header">
         <h2>Clients</h2>
@@ -82,5 +86,6 @@ export default function ClientsList() {
         </table>
       </div>
     </div>
+    </>
   );
 }

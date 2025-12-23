@@ -1,6 +1,7 @@
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { updateContrat } from "../api/contratService";
+import Navbar from "../components/Navbar";
 
 export default function ContratEdit() {
   const { id } = useParams();
@@ -30,6 +31,8 @@ export default function ContratEdit() {
   };
 
   return (
+    <>
+      <Navbar />
     <div className="page form-page">
       <div className="card form-wrapper">
         <h2>Modifier contrat</h2>
@@ -47,5 +50,6 @@ export default function ContratEdit() {
         </form>
       </div>
     </div>
+    </>
   );
 }

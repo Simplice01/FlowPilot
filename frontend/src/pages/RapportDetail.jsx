@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { getRapportById } from "../api/rapportService";
+import Navbar from "../components/Navbar";
+
 
 export default function RapportDetail() {
   const { id } = useParams();
@@ -24,6 +26,8 @@ export default function RapportDetail() {
   if (!rapport) return null;
 
   return (
+    <>
+      <Navbar />
     <div className="page">
       <div className="card">
         <h2>{rapport.titre}</h2>
@@ -62,5 +66,6 @@ export default function RapportDetail() {
         </div>
       </div>
     </div>
+    </>
   );
 }

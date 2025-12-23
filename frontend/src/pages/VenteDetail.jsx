@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { getVenteById } from "../api/venteService";
+import Navbar from "../components/Navbar";
+
 
 export default function VenteDetail() {
   const { id } = useParams();
@@ -23,6 +25,8 @@ export default function VenteDetail() {
   if (!vente) return null;
 
   return (
+    <>
+      <Navbar />
     <div className="page">
       <div className="card">
         <h2>Détail de la vente</h2>
@@ -37,5 +41,6 @@ export default function VenteDetail() {
         </button>
       </div>
     </div>
+    </>
   );
 }

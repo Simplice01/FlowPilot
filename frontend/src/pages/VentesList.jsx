@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { getVentes, deleteVente } from "../api/venteService";
+import Navbar from "../components/Navbar";
+
 
 export default function VentesList() {
   const [ventes, setVentes] = useState([]);
@@ -35,6 +37,8 @@ export default function VentesList() {
   };
 
   return (
+    <>
+      <Navbar />
     <div className="page">
       <div className="page-header">
         <h2>Ventes</h2>
@@ -93,5 +97,6 @@ export default function VentesList() {
         </table>
       </div>
     </div>
+    </>
   );
 }

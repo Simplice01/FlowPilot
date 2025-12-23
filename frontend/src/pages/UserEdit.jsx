@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { updateUser } from "../api/userService";
+import Navbar from "../components/Navbar";
+
 
 export default function UserEdit() {
   const { id } = useParams();
@@ -62,6 +64,8 @@ export default function UserEdit() {
   if (!user) return null;
 
   return (
+    <>
+      <Navbar />
     <div className="page form-page">
       <div className="card form-wrapper">
         <h2 style={{ marginBottom: 24 }}>Modifier l’utilisateur</h2>
@@ -155,5 +159,6 @@ export default function UserEdit() {
         </form>
       </div>
     </div>
+    </>
   );
 }

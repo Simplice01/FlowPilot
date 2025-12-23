@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { createTache } from "../api/tacheService";
 import { getCommerciaux } from "../api/userService";
+import Navbar from "../components/Navbar";
+
 
 export default function TacheCreate() {
   const navigate = useNavigate();
@@ -52,6 +54,8 @@ export default function TacheCreate() {
   };
 
   return (
+    <>
+      <Navbar />
     <div className="page form-page">
       <div className="card form-wrapper">
         <h2>Nouvelle tâche</h2>
@@ -107,6 +111,7 @@ export default function TacheCreate() {
         </form>
       </div>
     </div>
+    </>
   );
 }
           

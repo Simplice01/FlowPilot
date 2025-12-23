@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom";
 import { createContrat } from "../api/contratService";
 import { getClients } from "../api/clientService";
 import { getCommerciaux } from "../api/userService";
+import Navbar from "../components/Navbar";
+
 
 export default function ContratCreate() {
   const navigate = useNavigate();
@@ -55,6 +57,8 @@ export default function ContratCreate() {
   };
 
   return (
+    <>
+      <Navbar />
     <div className="page form-page">
       <div className="card form-wrapper">
         <h2>Nouveau contrat</h2>
@@ -91,5 +95,6 @@ export default function ContratCreate() {
         </form>
       </div>
     </div>
+    </>
   );
 }
